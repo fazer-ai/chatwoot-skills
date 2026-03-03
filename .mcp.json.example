@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "chatwoot": {
+      "command": "bunx",
+      "args": ["@fazer-ai/mcp-chatwoot"],
+      "env": {
+        "CHATWOOT_BASE_URL": "https://your-chatwoot-instance.com",
+        "CHATWOOT_API_TOKEN": "your-api-token"
+      }
+    }
+  }
+}

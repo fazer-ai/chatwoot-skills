@@ -1,0 +1,82 @@
+[
+  {
+    "id": "contact-001",
+    "skills": ["chatwoot-contact-operations"],
+    "query": "I have two duplicate contacts for the same customer - IDs 42 and 87. The one with ID 42 has more data. How do I merge them?",
+    "expected_behavior": [
+      "Recommends contacts_merge with base_contact_id: 42 and mergee_contact_id: 87",
+      "Explains that base_contact survives and mergee is deleted",
+      "Notes that conversations from mergee transfer to base",
+      "Suggests verifying with contacts_get on both IDs first"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know about the contacts_merge tool or the base vs mergee distinction",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct merge call with clear explanation of base vs mergee",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "contact-002",
+    "skills": ["chatwoot-contact-operations"],
+    "query": "I need to find all contacts that have an email from @acme.com domain who haven't been active in 90 days. What's the best approach?",
+    "expected_behavior": [
+      "Uses contacts_filter (not contacts_search) for structured query",
+      "Shows correct payload with email contains '@acme.com' AND last_activity_at days_before 90",
+      "Gets the query_operator right (AND on first condition, null on last)",
+      "Explains why contacts_filter is better than contacts_search for this use case"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May use contacts_search which doesn't support date and boolean conditions",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct multi-condition filter with proper operators",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "contact-003",
+    "skills": ["chatwoot-contact-operations"],
+    "query": "I want to tag all contacts from a specific domain as 'enterprise' but I don't want to lose their existing labels. How?",
+    "expected_behavior": [
+      "Warns that contact_labels_set replaces all labels",
+      "Shows the read-merge-write pattern for each contact",
+      "Uses contacts_filter to find domain contacts",
+      "Shows contact_labels_list → merge → contact_labels_set workflow"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May directly set labels without knowing about the replace behavior",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correctly handles label replacement with safe merge pattern",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "contact-004",
+    "skills": ["chatwoot-contact-operations"],
+    "query": "I want to create a new contact and start a conversation with them on our email inbox. What's the process?",
+    "expected_behavior": [
+      "Creates contact with contacts_create",
+      "Links to inbox with contacts_create_contact_inbox or uses contactable_inboxes",
+      "Creates conversation with conversations_create using contact_id and inbox_id",
+      "Shows the complete workflow from contact creation to conversation"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know about the contact-inbox relationship requirement",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - complete workflow covering contact-inbox linking and conversation creation",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

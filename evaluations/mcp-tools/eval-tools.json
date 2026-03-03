@@ -1,0 +1,102 @@
+[
+  {
+    "id": "tools-001",
+    "skills": ["chatwoot-mcp-tools-expert"],
+    "query": "I want to manage my Chatwoot conversations using the MCP tools. Where do I start? I don't even know my account ID.",
+    "expected_behavior": [
+      "Recommends calling profile_get first to discover account_id",
+      "Explains that all tools require account_id as a parameter",
+      "Suggests a logical next step like conversations_list or conversations_meta",
+      "Mentions the discover → act workflow pattern"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest generic API calls without knowing the account_id requirement or the profile_get discovery step",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - precise step-by-step starting with profile_get, explains account_id requirement",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "tools-002",
+    "skills": ["chatwoot-mcp-tools-expert"],
+    "query": "I need to find a specific customer in Chatwoot. Their email is jane@acme.com. What tool should I use?",
+    "expected_behavior": [
+      "Recommends contacts_search with q parameter for simple email lookup",
+      "Explains the difference between contacts_search and contacts_filter",
+      "Provides correct tool call with q: 'jane@acme.com'",
+      "Notes that contacts_filter would be used for more complex queries"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest contacts_filter for a simple lookup or use wrong parameter names",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correctly identifies contacts_search as the right tool for simple text lookup",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "tools-003",
+    "skills": ["chatwoot-mcp-tools-expert"],
+    "query": "I'm trying to filter conversations but my filter isn't working. I'm passing filter_operator: '=' and values: 'open'. What am I doing wrong?",
+    "expected_behavior": [
+      "Identifies that filter_operator should be 'equal_to' not '='",
+      "Points out that values must be an array ['open'] not a string",
+      "Shows the correct filter payload structure",
+      "Mentions query_operator requirement for multi-condition filters"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the specific Chatwoot filter syntax and suggest generic REST API patterns",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - identifies both errors with correct Chatwoot-specific syntax",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "tools-004",
+    "skills": ["chatwoot-mcp-tools-expert"],
+    "query": "I called conversations_list and only got 25 results but I know I have more. How do I get all of them?",
+    "expected_behavior": [
+      "Explains pagination: default page size is ~25 items",
+      "Shows how to increment the page parameter",
+      "Describes the pattern: keep fetching until results < page size",
+      "Provides example of paginated loop"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest pagination but without Chatwoot-specific details about page sizing",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - explains Chatwoot pagination pattern with concrete example",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "tools-005",
+    "skills": ["chatwoot-mcp-tools-expert"],
+    "query": "I created a message but it shows as coming from the customer instead of the agent. What happened?",
+    "expected_behavior": [
+      "Identifies that message_type was likely set to 'incoming' instead of 'outgoing'",
+      "Explains message_type values: outgoing (agent), incoming (customer), activity (system)",
+      "Provides correct messages_create call with message_type: 'outgoing'",
+      "Notes the private parameter for internal notes"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the specific message_type values for Chatwoot API",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - immediately identifies message_type issue with correct values",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

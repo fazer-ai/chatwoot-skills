@@ -1,0 +1,83 @@
+[
+  {
+    "id": "admin-001",
+    "skills": ["chatwoot-admin-configuration"],
+    "query": "I need to set up a new support team from scratch - team, agents, inbox, and basic automation. Walk me through it.",
+    "expected_behavior": [
+      "Provides step-by-step setup: team → agents → inbox → members → automation",
+      "Uses correct tools: teams_create, agents_list/create, inboxes_create, inbox_members_create, team_members_add",
+      "Shows automation_rules_create for routing",
+      "Mentions canned_responses_create for templates"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May provide generic steps without the correct tool names or proper sequencing",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - complete setup guide with correct tool chain and proper ordering",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "admin-002",
+    "skills": ["chatwoot-admin-configuration"],
+    "query": "I want to create an automation rule that assigns conversations from our email inbox (ID 3) to the billing team (ID 2) when the message contains 'invoice' or 'payment'.",
+    "expected_behavior": [
+      "Uses automation_rules_create with correct parameters",
+      "Sets event_name to 'message_created' for content matching",
+      "Shows correct condition with content contains and multiple values",
+      "Shows assign_team action with action_params"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the correct event_name, condition structure, or action format",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct automation rule with proper event, condition, and action structure",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "admin-003",
+    "skills": ["chatwoot-admin-configuration"],
+    "query": "I want to set up a webhook that notifies my Slack integration whenever a new conversation is created or a message is sent. How?",
+    "expected_behavior": [
+      "Uses webhooks_create with correct URL and subscriptions",
+      "Lists relevant subscription events: conversation_created, message_created",
+      "Explains the webhook payload format",
+      "May mention testing the webhook endpoint"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest webhook creation without knowing the correct subscription event names",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct webhook creation with proper subscription events listed",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "admin-004",
+    "skills": ["chatwoot-admin-configuration"],
+    "query": "I need to define custom attributes for our contacts - company name (text), subscription plan (list with free/pro/enterprise), and monthly revenue (number). How do I set this up?",
+    "expected_behavior": [
+      "Uses custom_attributes_create for each attribute",
+      "Sets correct attribute_display_type for each: text, list, number",
+      "Sets attribute_model to 'contact_attribute'",
+      "Shows attribute_values for the list type",
+      "Provides meaningful attribute_key values"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the custom_attributes_create parameters or display type options",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct three custom_attributes_create calls with proper types and configuration",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

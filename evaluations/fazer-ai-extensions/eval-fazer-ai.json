@@ -1,0 +1,65 @@
+[
+  {
+    "id": "fazer-001",
+    "skills": ["chatwoot-fazer-ai-extensions"],
+    "query": "I want to create a sales pipeline kanban board with stages: Lead, Qualified, Proposal, Negotiation, Closed Won, Closed Lost. How do I set this up using the fazer.ai extensions?",
+    "expected_behavior": [
+      "Creates board with kanban_boards_create with name and description",
+      "Creates steps in order with kanban_steps_create for each stage",
+      "Explains the board → steps → tasks hierarchy",
+      "Shows position parameter for ordering steps",
+      "Notes that this requires a fazer.ai Chatwoot instance"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "Would not know about kanban tools as they are fazer.ai-exclusive extensions",
+      "expected_quality": "None"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct kanban setup with proper board and step creation sequence",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "fazer-002",
+    "skills": ["chatwoot-fazer-ai-extensions"],
+    "query": "I need to schedule a follow-up message to a customer in conversation #55 for next Monday at 9am. How do I do this?",
+    "expected_behavior": [
+      "Uses scheduled_messages_create with conversation_id: 55",
+      "Shows ISO 8601 timestamp for the scheduled time",
+      "Explains content parameter for the message body",
+      "May mention listing existing scheduled messages to avoid duplicates",
+      "Notes that this requires a fazer.ai Chatwoot instance"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "Would not know about scheduled message tools as they are fazer.ai-exclusive",
+      "expected_quality": "None"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct scheduled message creation with proper timestamp format",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "fazer-003",
+    "skills": ["chatwoot-fazer-ai-extensions"],
+    "query": "I want to review the audit history for a kanban task to see who moved it and when. How can I track this?",
+    "expected_behavior": [
+      "Uses kanban_audit_events_list or kanban_audit_events_get for the task",
+      "Explains that audit events track all task movements and changes",
+      "Shows how to filter by task ID",
+      "Describes the audit event structure (who, what, when)",
+      "Notes that this requires a fazer.ai Chatwoot instance"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "Would not know about kanban audit event tools or their existence",
+      "expected_quality": "None"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct audit event query with proper tool and explanation",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

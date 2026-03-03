@@ -1,0 +1,84 @@
+[
+  {
+    "id": "conv-001",
+    "skills": ["chatwoot-conversation-management"],
+    "query": "I want to triage all open unassigned conversations and assign them to the right teams based on their content. How should I approach this?",
+    "expected_behavior": [
+      "Recommends conversations_list or conversations_filter with status:open and assignee_type:unassigned",
+      "Suggests reading messages_list for each to understand content",
+      "Shows how to assign using conversation_assignments_assign with team_id",
+      "Mentions adding labels for categorization",
+      "References the triage workflow pattern"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest a generic approach without knowing specific Chatwoot tools or the triage workflow",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - provides structured triage workflow with correct tool calls",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "conv-002",
+    "skills": ["chatwoot-conversation-management"],
+    "query": "I want to close all conversations that haven't had any activity in 30 days with a farewell message. Can you help?",
+    "expected_behavior": [
+      "Uses conversations_filter with last_activity_at + days_before operator",
+      "Shows sending farewell message with messages_create before resolving",
+      "Uses conversations_toggle_status with status: 'resolved'",
+      "Mentions pagination for handling many results",
+      "Describes the correct order: message first, then resolve"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the filter syntax for date-based queries or the correct status toggle approach",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - complete bulk resolution workflow with correct filter syntax and ordering",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "conv-003",
+    "skills": ["chatwoot-conversation-management"],
+    "query": "I want to add a 'reviewed' label to conversation #42 but I don't want to remove the existing labels. How?",
+    "expected_behavior": [
+      "Warns that conversations_set_labels REPLACES all labels",
+      "Shows the read-merge-write pattern: get_labels → append → set_labels",
+      "Provides correct tool calls: conversations_get_labels then conversations_set_labels",
+      "Shows the merged array example"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May directly call set_labels without knowing it replaces all existing labels",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correctly identifies the replace behavior and shows the safe add-label pattern",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "conv-004",
+    "skills": ["chatwoot-conversation-management"],
+    "query": "How do I find all high-priority open conversations assigned to team 5 and send them to a different team?",
+    "expected_behavior": [
+      "Uses conversations_filter with multi-condition payload",
+      "Shows correct filter with status, priority, and team_id conditions",
+      "Uses conversation_assignments_assign to reassign",
+      "Gets query_operator placement right (AND between conditions, null on last)"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the correct filter payload structure for multi-condition queries",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct multi-condition filter with proper query_operator placement",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

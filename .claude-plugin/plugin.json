@@ -1,0 +1,24 @@
+{
+  "name": "chatwoot-skills",
+  "version": "1.0.0",
+  "description": "Expert skills for managing Chatwoot via mcp-chatwoot MCP tools — conversations, contacts, automation, reporting, help center, and more",
+  "author": {
+    "name": "fazer.ai",
+    "url": "https://fazer.ai"
+  },
+  "license": "MIT",
+  "keywords": [
+    "chatwoot",
+    "mcp",
+    "conversations",
+    "contacts",
+    "helpdesk",
+    "customer-support",
+    "crm",
+    "automation",
+    "reporting",
+    "knowledge-base"
+  ],
+  "repository": "https://github.com/fazer-ai/chatwoot-skills",
+  "homepage": "https://github.com/fazer-ai/chatwoot-skills"
+}

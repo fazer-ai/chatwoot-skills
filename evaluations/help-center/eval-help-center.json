@@ -1,0 +1,64 @@
+[
+  {
+    "id": "hc-001",
+    "skills": ["chatwoot-help-center"],
+    "query": "I want to create a complete help center for our product. I need a portal, categories for 'Getting Started', 'Billing', and 'API Reference', and a few articles in each. How do I do this?",
+    "expected_behavior": [
+      "Creates portal first with help_center_portals_create",
+      "Then creates categories with help_center_categories_create for each",
+      "Finally creates articles with help_center_articles_create in each category",
+      "Shows the correct hierarchical order: portal → categories → articles",
+      "Uses proper locale parameter (e.g., 'en')"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know the correct tool names or hierarchical creation order",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - step-by-step setup with correct tools and ordering",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "hc-002",
+    "skills": ["chatwoot-help-center"],
+    "query": "I have 20 FAQ articles in markdown format that I want to bulk-import into our existing help center portal (slug: 'support'). What's the most efficient way?",
+    "expected_behavior": [
+      "Shows help_center_articles_create in a loop for bulk creation",
+      "Notes that articles accept markdown in the content field",
+      "Requires portal_id (or portal slug) and category_id",
+      "Suggests creating categories first if they don't exist",
+      "Mentions setting status to 'published' for immediate visibility"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest generic import without knowing the correct tool parameters",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - efficient bulk creation approach with correct parameters",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "hc-003",
+    "skills": ["chatwoot-help-center"],
+    "query": "Our help center is messy. I need to reorganize articles - move some to different categories and archive outdated ones. How?",
+    "expected_behavior": [
+      "Uses help_center_articles_update to change category_id for article moves",
+      "Uses help_center_articles_update with status: 'archived' for outdated articles",
+      "Suggests listing current structure first with help_center_categories_list and help_center_articles_list",
+      "Shows the systematic approach: list, plan, then update"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know about article status values or how to move articles between categories",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct update approach for reorganization with proper status handling",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

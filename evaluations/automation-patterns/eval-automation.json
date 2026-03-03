@@ -1,0 +1,86 @@
+[
+  {
+    "id": "auto-001",
+    "skills": ["chatwoot-automation-patterns"],
+    "query": "I want to set up round-robin auto-assignment so new conversations are evenly distributed among my team's agents. How?",
+    "expected_behavior": [
+      "Creates automation rule with event_name: 'conversation_created'",
+      "Uses assign_team action to route to team (which handles round-robin internally)",
+      "May also show assign_agent action for direct assignment",
+      "Explains conditions for scoping (e.g., inbox_id, channel)",
+      "References the auto-assignment pattern"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest custom scripting rather than using Chatwoot's built-in automation",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct automation rule with team-based round-robin approach",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "auto-002",
+    "skills": ["chatwoot-automation-patterns"],
+    "query": "I need an SLA escalation system: if a conversation hasn't been responded to within 15 minutes, it should be escalated to a supervisor. How can I do this?",
+    "expected_behavior": [
+      "Explains that Chatwoot automation events are not time/SLA-based directly",
+      "Suggests using reports_overview or conversations_filter to find overdue conversations",
+      "Shows periodic checking pattern: filter for open conversations with FRT > threshold",
+      "Uses conversation_assignments_assign to reassign to supervisor",
+      "May mention external scheduler or webhook for the timer"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May try to create a timestamp-based automation rule which doesn't exist in Chatwoot",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correctly identifies the limitation and provides practical workaround pattern",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "auto-003",
+    "skills": ["chatwoot-automation-patterns"],
+    "query": "I want to create a simple chatbot that greets users and collects their email before handing off to a human agent. How do I build this?",
+    "expected_behavior": [
+      "Creates agent bot with agent_bots_create",
+      "Attaches to inbox with agent_bots_attach_to_inbox",
+      "Explains the webhook-based bot flow: receive message events → send responses",
+      "Shows bot-to-human handoff pattern (bot resolves, human picks up OR conversation_assignments_assign)",
+      "Mentions outgoing_url for bot webhook endpoint"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest third-party bot frameworks without covering Chatwoot's native agent bot system",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - complete bot setup with native Chatwoot tools and handoff pattern",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "auto-004",
+    "skills": ["chatwoot-automation-patterns"],
+    "query": "I want to integrate Chatwoot with our issue tracker so that when a conversation is labeled 'bug', a webhook fires to create an issue. How?",
+    "expected_behavior": [
+      "Creates webhook with webhooks_create subscribed to conversation_updated",
+      "Explains webhook payload format including label changes",
+      "Suggests automation rule to detect label assignment if automation event supports it",
+      "Shows the integration pattern: webhook → external handler → action",
+      "Mentions integration_hooks tools as alternative"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest generic webhook setup without Chatwoot-specific event names or payload format",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct webhook configuration with proper event subscription and integration pattern",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]

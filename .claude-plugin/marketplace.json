@@ -1,0 +1,17 @@
+{
+  "name": "chatwoot-skills",
+  "description": "Expert skills for managing Chatwoot with Claude Code",
+  "owner": {
+    "name": "fazer.ai",
+    "url": "https://fazer.ai"
+  },
+  "plugins": [
+    {
+      "name": "chatwoot-skills",
+      "source": "./",
+      "description": "8 expert skills for managing Chatwoot via mcp-chatwoot MCP tools — conversations, contacts, automation, reporting, help center, and more",
+      "version": "1.0.0",
+      "category": "automation"
+    }
+  ]
+}

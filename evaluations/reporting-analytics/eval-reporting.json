@@ -1,0 +1,62 @@
+[
+  {
+    "id": "report-001",
+    "skills": ["chatwoot-reporting-analytics"],
+    "query": "I need a weekly summary of our team's performance - conversations resolved, first response time, and resolution time. How do I pull this data?",
+    "expected_behavior": [
+      "Uses reports_agents_summary with since/until as Unix timestamps for last 7 days",
+      "Mentions getting overview data from reports_overview for real-time counts",
+      "Explains key metrics: conversations_count, avg_first_response_time, avg_resolution_time",
+      "Shows timestamp conversion (e.g., date +%s for Unix epoch)"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know which report endpoint to use or that timestamps must be Unix epoch",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - correct report tools with proper Unix timestamp parameters",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "report-002",
+    "skills": ["chatwoot-reporting-analytics"],
+    "query": "I want to compare performance across all our inboxes to see which channel has the slowest response times. What's the best way?",
+    "expected_behavior": [
+      "Uses reports_inboxes_summary to get per-inbox metrics",
+      "Explains avg_first_response_time and avg_resolution_time fields",
+      "May supplement with reports_inboxes for time-series data",
+      "Suggests comparing FRT across inboxes to identify bottlenecks"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May suggest per-inbox queries rather than the summary endpoint",
+      "expected_quality": "Medium"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - uses correct summary endpoint and explains metric comparison approach",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  },
+  {
+    "id": "report-003",
+    "skills": ["chatwoot-reporting-analytics"],
+    "query": "My agents are complaining about uneven workload distribution. How can I check if conversations are evenly assigned?",
+    "expected_behavior": [
+      "Uses reports_agents_summary to get per-agent conversation counts",
+      "Also suggests reports_overview for current open/pending/unattended counts",
+      "Explains how to derive workload balance from the data",
+      "May suggest conversations_meta for real-time assignment overview"
+    ],
+    "baseline_without_skill": {
+      "likely_response": "May not know which specific report tools provide workload data",
+      "expected_quality": "Low"
+    },
+    "with_skill_expected": {
+      "response_quality": "High - uses correct tools to analyze agent workload distribution",
+      "uses_skill_content": true,
+      "provides_correct_syntax": true
+    }
+  }
+]
