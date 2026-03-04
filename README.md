@@ -4,6 +4,25 @@ Expert Claude Code skills for the [mcp-chatwoot](https://github.com/fazer-ai/mcp
 
 Built by [fazer.ai](https://fazer.ai) — following the [Agent Skills](https://github.com/anthropics/agent-skills) open standard.
 
+## Installation
+
+### Claude Code
+
+**Method 1: Plugin install** (recommended)
+```bash
+claude plugin install fazer-ai/chatwoot-skills
+```
+
+**Method 2: Manual clone**
+```bash
+git clone https://github.com/fazer-ai/chatwoot-skills.git
+cp -r chatwoot-skills/skills/* ~/.claude/skills/
+```
+
+### Claude.ai
+
+Download individual skill zips from the [`dist/`](dist/) folder, then upload via **Settings → Capabilities → Skills**.
+
 ## Quick Start
 
 ```bash

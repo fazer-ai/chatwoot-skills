@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# chatwoot-skills build & validation script
-# Usage: ./build.sh [validate|stats|clean]
+# chatwoot-skills build, validation & distribution script
+# Usage: ./build.sh [validate|build|stats|clean]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DIST_DIR="$SCRIPT_DIR/dist"
+VERSION=$(grep '"version"' "$SCRIPT_DIR/.claude-plugin/plugin.json" | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -16,6 +18,40 @@ warnings=0
 log_ok()   { echo -e "${GREEN}✓${NC} $1"; }
 log_warn() { echo -e "${YELLOW}⚠${NC} $1"; warnings=$((warnings + 1)); }
 log_err()  { echo -e "${RED}✗${NC} $1"; errors=$((errors + 1)); }
+
+build_dist() {
+  echo "=== Building Distribution Packages (v${VERSION}) ==="
+
+  mkdir -p "$DIST_DIR"
+  find "$DIST_DIR" -name "*.zip" -delete
+
+  cd "$SCRIPT_DIR"
+
+  # Individual skill zips — for Claude.ai upload
+  echo "Building per-skill zips for Claude.ai..."
+  for skill_dir in "$SCRIPT_DIR"/skills/chatwoot-*/; do
+    [[ -d "$skill_dir" ]] || continue
+    local name
+    name=$(basename "$skill_dir")
+    zip -rq "$DIST_DIR/${name}-v${VERSION}.zip" "skills/${name}/" -x "*.DS_Store"
+    log_ok "${name}-v${VERSION}.zip"
+  done
+
+  # Full bundle zip — for Claude Code / manual install
+  echo "Building full bundle for Claude Code..."
+  zip -rq "$DIST_DIR/chatwoot-skills-v${VERSION}.zip" \
+    .claude-plugin/ \
+    skills/ \
+    README.md \
+    LICENSE \
+    -x "*.DS_Store"
+  log_ok "chatwoot-skills-v${VERSION}.zip (full bundle)"
+
+  echo ""
+  echo "Output:"
+  ls -lh "$DIST_DIR"/*.zip
+  echo ""
+}
 
 validate_plugin() {
   echo "=== Plugin Manifest ==="
@@ -198,14 +234,38 @@ case "${1:-validate}" in
       echo -e "${GREEN}All checks passed!${NC}"
     fi
     ;;
+  build)
+    echo ""
+    echo "Building chatwoot-skills v${VERSION}..."
+    echo ""
+    validate_plugin
+    validate_skills
+    validate_evaluations
+    validate_docs
+    check_naming
+
+    if (( errors > 0 )); then
+      echo -e "${RED}Build aborted: $errors validation errors${NC}"
+      exit 1
+    fi
+
+    build_dist
+    echo -e "${GREEN}Build complete! Upload per-skill zips to Claude.ai, or use the full bundle for manual installs.${NC}"
+    ;;
   stats)
     show_stats
     ;;
   clean)
-    echo "Nothing to clean (pure markdown project)"
+    rm -rf "$DIST_DIR"
+    echo "Cleaned dist/"
     ;;
   *)
-    echo "Usage: $0 [validate|stats|clean]"
+    echo "Usage: $0 [validate|build|stats|clean]"
+    echo ""
+    echo "  validate  Check plugin structure (default)"
+    echo "  build     Validate then create distribution zips in dist/"
+    echo "  stats     Show project statistics"
+    echo "  clean     Remove dist/ directory"
     exit 1
     ;;
 esac
