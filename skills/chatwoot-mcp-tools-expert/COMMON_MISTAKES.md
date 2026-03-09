@@ -15,12 +15,15 @@ Step 2: conversations_list(account_id: 1, ...) → works
 
 **Symptom**: 404 or wrong conversation returned.
 
-**Explanation**: Chatwoot has two ID types for conversations:
+**Explanation**: Chatwoot has three ID types for conversations:
 
-- **`display_id`** — The integer shown in the UI (e.g., `#42`). This is what `conversation_id` expects in most tools.
+- **`display_id`** — The integer shown in the UI (e.g., `#42`). This is what the REST API and mcp-chatwoot tools expect as `conversation_id`.
+- **`id`** — Internal database integer. Present in webhook payloads alongside `display_id`. **Do NOT use this for API calls** — always use `display_id`.
 - **`uuid`** — Internal UUID. Not used by mcp-chatwoot tools.
 
-**Fix**: Always use the numeric `display_id` for `conversation_id` parameters.
+In webhook payloads, both `id` and `display_id` are present. They may have the same value in some cases but are semantically different. The REST API endpoints (`/api/v1/accounts/{account_id}/conversations/{conversation_id}`) always expect `display_id`.
+
+**Fix**: Always use `display_id` (not `id`, not `uuid`) for `conversation_id` parameters in API calls and tool invocations.
 
 ## 3. Confusing `contacts_search` vs `contacts_filter`
 

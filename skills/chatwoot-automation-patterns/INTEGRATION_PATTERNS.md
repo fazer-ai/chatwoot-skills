@@ -4,6 +4,8 @@
 
 ### conversation_created
 
+> **Important**: Webhook payloads include both `id` (internal DB key) and `display_id`. Always use `display_id` when making API calls — the REST API expects `display_id` as the `conversation_id` parameter.
+
 ```json
 {
   "event": "conversation_created",
