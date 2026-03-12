@@ -8,9 +8,10 @@
 
 | File                      | Lines | Description                                                                                                                 |
 | ------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------- |
-| `SKILL.md`                | ~200  | Core guide — 6 automation patterns: auto-assignment, SLA escalation, channel routing, bot handoff, webhooks, categorization |
+| `SKILL.md`                | ~210  | Core guide — 6 automation patterns: auto-assignment, SLA escalation, channel routing, bot handoff, webhooks, categorization |
 | `AGENT_BOTS.md`           | ~110  | Agent bot setup, inbox attachment, webhook payloads, management                                                             |
-| `INTEGRATION_PATTERNS.md` | ~140  | Webhook payloads, integration hooks, 4 integration recipes                                                                  |
+| `WEBHOOK_PAYLOADS.md`     | ~380  | Complete webhook payload reference for all event types with real examples                                                   |
+| `INTEGRATION_PATTERNS.md` | ~100  | Integration hooks and 4 integration recipes (Slack, CRM, ticketing, CSAT)                                                  |
 | `EXAMPLES.md`             | ~130  | 4 end-to-end scenarios: routing system, escalation, bot+human hybrid, multi-channel notifications                           |
 
 ## Dependencies

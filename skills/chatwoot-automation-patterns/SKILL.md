@@ -207,6 +207,8 @@ automation_rules_create(name: "Detect technical issues",
 
 See `AGENT_BOTS.md` for detailed bot setup guide.
 
-See `INTEGRATION_PATTERNS.md` for webhook payload formats and integration recipes.
+See `WEBHOOK_PAYLOADS.md` for complete webhook payload structures with real examples for all event types.
+
+See `INTEGRATION_PATTERNS.md` for integration hooks and integration recipes.
 
 See `EXAMPLES.md` for end-to-end automation scenarios.

@@ -2,64 +2,15 @@
 
 ## Webhook Payloads
 
-### conversation_created
+> **Full reference**: See `WEBHOOK_PAYLOADS.md` for complete payload structures with real examples for all 8+ event types.
 
-> **Important**: Webhook payloads include both `id` (internal DB key) and `display_id`. Always use `display_id` when making API calls — the REST API expects `display_id` as the `conversation_id` parameter.
+### Key facts
 
-```json
-{
-  "event": "conversation_created",
-  "data": {
-    "id": 42,
-    "display_id": 42,
-    "inbox_id": 5,
-    "status": "open",
-    "contact": {
-      "id": 100,
-      "name": "Jane Smith",
-      "email": "jane@example.com"
-    },
-    "assignee": null,
-    "team": null,
-    "labels": [],
-    "custom_attributes": {}
-  }
-}
-```
-
-### message_created
-
-```json
-{
-  "event": "message_created",
-  "data": {
-    "id": 1234,
-    "content": "I need help with billing",
-    "message_type": "incoming",
-    "conversation_id": 42,
-    "sender": {
-      "id": 100,
-      "name": "Jane Smith",
-      "type": "contact"
-    },
-    "created_at": "2026-01-15T10:30:00.000Z"
-  }
-}
-```
-
-### conversation_status_changed
-
-```json
-{
-  "event": "conversation_status_changed",
-  "data": {
-    "id": 42,
-    "status": "resolved",
-    "previous_status": "open",
-    "assignee": { "id": 5, "name": "Agent Alice" }
-  }
-}
-```
+- Payloads are **flat** — fields at top level, NO `data` wrapper
+- In conversation payloads, the `id` field IS `display_id` — use it directly for API calls
+- `message_type` is a string at top level ("incoming"), but integer inside `conversation.messages[]` (0=incoming)
+- `sender` in message events is a Contact (incoming) or User (outgoing)
+- Contact events only go to account-level webhooks, not API inbox webhooks
 
 ## Integration Hooks
 

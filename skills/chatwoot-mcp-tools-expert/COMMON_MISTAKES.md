@@ -18,12 +18,14 @@ Step 2: conversations_list(account_id: 1, ...) → works
 **Explanation**: Chatwoot has three ID types for conversations:
 
 - **`display_id`** — The integer shown in the UI (e.g., `#42`). This is what the REST API and mcp-chatwoot tools expect as `conversation_id`.
-- **`id`** — Internal database integer. Present in webhook payloads alongside `display_id`. **Do NOT use this for API calls** — always use `display_id`.
+- **`id`** — Internal database integer. **Do NOT use this for API calls** — always use `display_id`.
 - **`uuid`** — Internal UUID. Not used by mcp-chatwoot tools.
 
-In webhook payloads, both `id` and `display_id` are present. They may have the same value in some cases but are semantically different. The REST API endpoints (`/api/v1/accounts/{account_id}/conversations/{conversation_id}`) always expect `display_id`.
+In webhook payloads, the conversation `id` field IS actually `display_id` (the `Conversations::EventDataPresenter` maps it). So you can use `payload["conversation"]["id"]` (from message events) or `payload["id"]` (from conversation events) directly as `conversation_id` in API calls.
 
-**Fix**: Always use `display_id` (not `id`, not `uuid`) for `conversation_id` parameters in API calls and tool invocations.
+> **Full webhook payload reference**: See `chatwoot-automation-patterns` skill → `WEBHOOK_PAYLOADS.md`
+
+**Fix**: Always use `display_id` (not `uuid`) for `conversation_id` parameters in API calls and tool invocations.
 
 ## 3. Confusing `contacts_search` vs `contacts_filter`
 

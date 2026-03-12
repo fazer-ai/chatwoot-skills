@@ -47,24 +47,22 @@ inboxes_set_agent_bot(account_id: 1, id: 5, agent_bot_id: null)
 
 ## How Bots Receive Messages
 
-When a message arrives in the bot's inbox, Chatwoot sends a POST webhook to the bot's `outgoing_url`:
+When a message arrives in the bot's inbox, Chatwoot sends a POST webhook to the bot's `outgoing_url` with a `message_created` payload.
 
-```json
-{
-  "event": "message_created",
-  "content": "I need help with my order",
-  "conversation": {
-    "id": 42,
-    "inbox_id": 5,
-    "contact_id": 100,
-    "status": "open"
-  },
-  "sender": {
-    "id": 100,
-    "name": "Customer Name"
-  }
-}
+> **Full payload reference**: See `WEBHOOK_PAYLOADS.md` for the complete `message_created` payload structure.
+
+Key fields the bot should extract:
+
 ```
+account_id      = payload["account"]["id"]
+conversation_id = payload["conversation"]["id"]  # this is display_id
+content         = payload["content"]
+message_type    = payload["message_type"]         # "incoming" or "outgoing"
+sender_name     = payload["sender"]["name"]
+event           = payload["event"]                # "message_created"
+```
+
+> **Important**: The payload is flat — fields are at the top level, NOT nested under `data`.
 
 ## Bot Response Patterns
 
