@@ -8,10 +8,13 @@ Built by [fazer.ai](https://fazer.ai) — following the [Agent Skills](https://g
 
 ### Claude Code
 
-**Method 1: Plugin install** (recommended)
-```bash
-claude plugin install fazer-ai/chatwoot-skills
+**Method 1: Marketplace** (recommended)
 ```
+/plugin marketplace add fazer-ai/chatwoot-skills
+/plugin install chatwoot-skills@chatwoot-skills
+```
+
+See the [plugin marketplaces docs](https://code.claude.com/docs/en/plugin-marketplaces) for more details.
 
 **Method 2: Manual clone**
 ```bash
@@ -26,15 +29,15 @@ Download individual skill zips from the [`dist/`](dist/) folder, then upload via
 ## Quick Start
 
 ```bash
-# Install the plugin
-claude plugin install fazer-ai/chatwoot-skills
+# In Claude Code, add the marketplace and install
+/plugin marketplace add fazer-ai/chatwoot-skills
+/plugin install chatwoot-skills@chatwoot-skills
 
 # Configure MCP server (create .mcp.json in your project)
 cp .mcp.json.example .mcp.json
 # Edit .mcp.json with your Chatwoot URL and API token
 
 # Start using it
-claude
 > Get my Chatwoot profile and list open conversations
 ```
 
